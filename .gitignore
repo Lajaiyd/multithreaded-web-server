@@ -1,0 +1,9 @@
+# Build artifacts
+*.o
+*.out
+*.exe
+*.log
+/build/
+
+# OS files
+.DS_Store
