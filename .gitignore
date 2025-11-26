@@ -7,3 +7,31 @@
 
 # OS files
 .DS_Store
+# ==============================
+# Ignore IDE settings
+# ==============================
+.idea/
+.vscode/
+
+# macOS debug symbols
+*.dSYM/
+
+# ==============================
+# CLion/CMake build folders
+# ==============================
+cmake-build*/
+CMakeFiles/
+CMakeCache.txt
+
+# ==============================
+# Ignore compiled test binaries
+# ==============================
+tests/pthread_test
+tests/pthread_stress_test
+
+# ==============================
+# Generic ignores
+# ==============================
+*.log
+*.tmp
+
