@@ -1,5 +1,6 @@
 //
 // Created by Olajide Akinyemi on 11/24/25.
+// Updated by PK for Sprint 1 integration
 //
 #include "server.h"
 #include <stdio.h>
@@ -9,6 +10,7 @@
 #include <arpa/inet.h>
 #include <errno.h>
 #include "handler.h"
+#include "threadpool.h"
 
 #define SERVER_BACKLOG 10
 #define BUFFER_SIZE 1024
@@ -75,22 +77,18 @@ int accept_connection(int server_file_descriptor)
     return client_file_descriptor;
 }
 
-// Sprint 0 - basic connection handling
 int main_accept_loop(int server_file_descriptor) {
-    printf("Starting server main loop (Sprint 0 implementation)...\n");
+    printf("Starting server main loop (Sprint 1 - Thread Pool)...\n");
 
     while (1) {
         int client_file_descriptor = accept_connection(server_file_descriptor);
         if (client_file_descriptor < 0) {
-            continue;  // Accept failed, continue listening
+            continue;  
         }
 
-        // Sprint 0: direct connection handling: Comment out for Sprint 1
-        handle_connection_stub(client_file_descriptor);
-        // Note: Sprint 1 queued client processing: Uncomment for Sprint 1
-        //enqueue_client(client_file_descriptor);
-        // Sprint 2: worker thread will call
-        //handle_connection(client_file_descriptor);
-
+        if (enqueue_client(client_file_descriptor) != 0) {
+            fprintf(stderr, "Failed to enqueue client, closing connection\n");
+            close(client_file_descriptor);
+        }
     }
 }
