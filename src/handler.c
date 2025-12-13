@@ -124,8 +124,15 @@ void handle_connection_stub(int client_file_descriptor) {
         return;
     }
 
+    if (bytes == 0)
+    {
+        printf("Connection closed by client.\n");
+        close(client_file_descriptor);
+        return;
+    }
+
     buffer[bytes] = '\0';
-    printf("Received %zd bytes from client:\n%s\n", bytes, buffer);
+    printf("Received %zd bytes from client:\n%s\n", (int)bytes, buffer);
 
 
     char method[8], path[256];
