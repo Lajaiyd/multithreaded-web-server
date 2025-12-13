@@ -32,7 +32,7 @@ all: $(TARGET)
 # Build Target
 # ================================
 $(TARGET): $(BIN_DIR) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(INCLUDES) $(OBJS) -o $(TARGET)
 
 # Rule to compile each .c into .o in bin/
 $(BIN_DIR)/%.o: $(SRC_DIR)/%.c
