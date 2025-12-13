@@ -55,6 +55,12 @@ static void send_http_response( int fd, int status, const char *status_text, con
 }
 
 static void serve_file(int fd, const char *path){
+
+    if (strstr(path, "..") != NULL) {
+    send_http_response(fd, 403, "Forbidden", "text/html", "<h1>403 Forbidden</h1>");
+    return;
+    }
+
     char fullpath[512];
     snprintf(fullpath, sizeof(fullpath), "%s%s", "public", path);
 
@@ -132,12 +138,13 @@ void handle_connection_stub(int client_file_descriptor) {
     }
 
     buffer[bytes] = '\0';
-    printf("Received %zd bytes from client:\n%s\n", (int)bytes, buffer);
+    printf("Received %d bytes from client:\n%s\n", (int)bytes, buffer);
 
 
     char method[8], path[256];
     if (sscanf(buffer, "%7s %255s", method, path) != 2){
-        send_http_response(client_file_descriptor, 400, "Bad Request", "text/html", "<h1>Bad Request</h1>");
+        send_http_response(
+            client_file_descriptor, 400, "Bad Request", "text/html", "<h1>Bad Request</h1>");
         close(client_file_descriptor);
         return;
     }

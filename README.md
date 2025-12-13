@@ -39,6 +39,41 @@ This is a complete thread pool implementation for the multithreaded web server w
 ### `tests/concurrent_test.c`
 - Stress test with 20 clients × 5 requests each
 
+
+### `include/handler.h`
+Declares the public handler interface:
+
+### `Request Handling`
+
+Reads incoming data using recv()
+Parses HTTP request line (GET /path HTTP/1.x)
+Supports
+GET requests
+Root path (/) mapped to /index.html
+Rejects unsupported methods with 405 Method Not Allowed
+
+###  `Static File Serving`
+Serves files from the public/ directory
+Determines MIME type based on file extension:
+.html, .css, .js, .png, .jpg, .txt
+Sends proper HTTP headers:
+Status line
+Content-Type
+Content-Length
+Connection: close
+
+### `Error Handling `
+400 Bad Request – Malformed request
+404 Not Found – File does not exist
+405 Method Not Allowed – Unsupported HTTP method
+500 Internal Server Error – File read or memory allocation failure
+
+### `Helper Functions (Internal)`
+send_all() – Ensures full buffer is sent over socket
+get_mime_type() – Determines correct MIME type
+send_http_response() – Sends formatted HTTP responses
+serve_file() – Reads and sends static files
+
 ## Building & Running
 
 ```bash
@@ -71,3 +106,9 @@ Edit these constants in `threadpool.h`:
 
 Edit port in `main.c`:
 - `port` variable (default: 8081)
+
+Known Limitations:
+- Only GET requests are supported
+- HTTP request headers are read in a single recv() call
+- No keep-alive connections
+- No directory listing support
