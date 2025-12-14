@@ -289,3 +289,19 @@ Concurrent test complete.
 | Throughput | ~380 requests/sec |
 
 ---
+
+### Screenshots
+
+<img width="947" height="521" alt="Screenshot 2025-12-13 at 19 24 01" src="https://github.com/user-attachments/assets/feec90fa-88e2-4ce9-ac28-39910025fb4f" />
+
+<img width="1920" height="1080" alt="Screenshot 2025-12-14 at 16 15 27" src="https://github.com/user-attachments/assets/025b3c69-34b7-4205-b721-c7ef9b64b2db" />
+
+<img width="1919" height="1080" alt="Screenshot 2025-12-14 at 16 15 40" src="https://github.com/user-attachments/assets/1b40ddce-5236-4025-83cd-436fdae9f5ad" />
+
+
+
+
+
+
+
+
