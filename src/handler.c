@@ -11,8 +11,19 @@
 #include <sys/socket.h>
 #include <sys/stat.h>
 #include <fcntl.h>
+#include <stddef.h>   // for size_t
 
 #define RECV_BUFFER 4096
+
+
+static int send_all(int fd, const char *buf, size_t len);
+
+static const char *get_mime_type(const char* path);
+
+static void send_http_response( int fd, int status, const char *status_text, const char *content_type, const char *body);
+
+static void serve_file(int fd, const char *path);
+
 
 static int send_all(int fd, const char *buf, size_t len){
     size_t total = 0;
